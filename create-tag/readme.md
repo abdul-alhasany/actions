@@ -31,18 +31,18 @@ on:
 
 jobs:
   tag-npm-version:
-	name: Tag on npm version
-	runs-on: ubuntu-latest
+    name: Tag on npm version
+    runs-on: ubuntu-latest
 
-	steps:
-	  - name: Checkout code
-		uses: actions/checkout@v3
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-	  - name: Create Tag
-	    id: create-tag
-		uses: abdul-alhasany/actions/create-tag@main
+      - name: Create Tag
+        id: create-tag
+        uses: abdul-alhasany/actions/create-tag@main
 
-	  - name: Show tag
-	    if: steps.create-tag.outputs.tag-created == 'true'
-	  	run: echo "Tag created: ${{ steps.create-tag.outputs.tag }}"
+      - name: Show tag
+        if: steps.create-tag.outputs.tag-created == 'true'
+        run: echo "Tag created: ${{ steps.create-tag.outputs.tag }}"
 ```
