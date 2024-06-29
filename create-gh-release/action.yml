@@ -26,3 +26,13 @@ runs:
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+
+    - name: Show log message
+      shell: bash
+      run: echo "Release published successfully"
+      if: steps.tag.outputs.tag-created == 'true'
+
+    - name: Show log message
+      shell: bash
+      run: echo "No release published as the tag {{ steps.tag.outputs.tag }} already exists"
+      if: steps.tag.outputs.tag-created == 'false'
