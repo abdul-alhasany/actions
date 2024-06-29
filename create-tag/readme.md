@@ -24,10 +24,10 @@ name: Tag on npm version
 
 on:
   push:
-	branches:
-	  - master
-	paths:
-	  - package.json
+    branches:
+      - master
+    paths:
+      - package.json
 
 jobs:
   tag-npm-version:
