@@ -8,7 +8,7 @@ runs:
         fetch-depth: 0
 
     - name: Create tag on NPM package version change
-      uses: ./create-tag
+      uses: abdul-alhasany/actions/create-tag@main
       id: tag
 
     - name: Setup pnpm and install dependencies
