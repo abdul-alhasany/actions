@@ -1,5 +1,8 @@
 name: Tag and publish release
 description: Create a new Git tag and publish a release on GitHub whenever the npm package version has changed.
+inputs:
+  GITHUB_TOKEN:
+    description: GitHub token
 runs:
   using: composite
   steps:
@@ -20,5 +23,5 @@ runs:
     - run: pnpx changelogithub
       if: steps.tag.outputs.tag-created == 'true'
       shell: bash
-      # env:
-      #   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      env:
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
