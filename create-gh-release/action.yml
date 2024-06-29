@@ -34,5 +34,6 @@ runs:
 
     - name: Show log message
       shell: bash
-      run: echo "No release published as the tag {{ steps.tag.outputs.tag }} already exists"
+      # run: echo "No release published as the tag {{ steps.tag.outputs.tag }} already exists"
+      run: echo "::warning::No release published as the tag {{ steps.tag.outputs.tag }} already exists"
       if: steps.tag.outputs.tag-created == 'false'
