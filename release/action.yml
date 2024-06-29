@@ -20,5 +20,5 @@ runs:
     - run: pnpx changelogithub
       if: steps.tag.outputs.tag-created == 'true'
       shell: bash
-      env:
-        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      # env:
+      #   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
