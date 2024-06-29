@@ -1,0 +1,52 @@
+# Based on neverendingqs/gh-action-tag-on-npm-version@master
+name: Tag on NPM Package Version Change
+description: Creates a new Git tag whenever the npm package version has changed.
+inputs:
+  git-user-email:
+    description: Git user.email to use.
+    default: 41898282+github-actions[bot]@users.noreply.github.com
+  git-user-name:
+    description: Git user.name.
+    default: github-actions[bot]
+  tag-prefix:
+    description: Prefix prepended to the version in package.json
+    default: v
+outputs:
+  tag:
+    description: "The value of the created tag (if any)"
+    value: ${{ steps.create-tag.outputs.tag }}
+  tag-created:
+    description: "Whether the tag was created"
+    value: ${{ steps.create-tag.outputs.tag-created }}
+runs:
+  using: composite
+  steps:
+    - id: create-tag
+      shell: bash
+      run: |
+        #!/bin/bash
+        set -eux
+
+        TAG="${TAG_PREFIX}$(cat package.json | jq -r '.version')"
+
+        # In case only a shallow clone was done
+        git fetch --tags
+
+        if ! git tag | grep "${TAG}"; then
+          git config user.name ${GIT_USER_NAME}
+          git config user.email ${GIT_USER_EMAIL}
+
+          git tag -a ${TAG} -m ${TAG}
+          git push --follow-tags
+
+          echo "tag=${TAG}" >> "${GITHUB_OUTPUT}"
+          echo "tag-created=true" >> "${GITHUB_OUTPUT}"
+        else
+          echo "'${TAG}' already exists. No action taken."
+
+          echo "tag-created=false" >> "${GITHUB_OUTPUT}"
+        fi
+      env:
+        GIT_USER_NAME: ${{ inputs.git-user-name }}
+        GIT_USER_EMAIL: ${{ inputs.git-user-email }}
+        TAG_PREFIX: ${{ inputs.tag-prefix }}
