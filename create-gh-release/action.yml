@@ -35,5 +35,7 @@ runs:
     - name: Show log message
       if: steps.tag.outputs.tag-created == 'false'
       shell: bash
-      # run: echo "No release published as the tag {{ steps.tag.outputs.tag }} already exists"
-      run: echo "::warning::No release published as the tag ${{ steps.tag.outputs.tag }} already exists"
+      # fail the workflow if the tag already exists
+      run: |
+        echo "::warning::No release published as the tag ${{ steps.tag.outputs.tag }} already exists"
+        exit 1
