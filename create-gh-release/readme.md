@@ -1,6 +1,13 @@
 # Create Github Release From Tag Action
+This action has the following steps:
+1. Check out the repository.
+2. Create a tag based on `package.json` version number (only if the tag does not already exist).
+3. Create a github release from the tag using [changelogithub](https://github.com/antfu/changelogithub) action and include changelog in the release body.
 
-This action checks out the repository, and creates a tag from the latest commit. If the tag is created, it creates a release from the tag. It also uses `changelogithub` action to generate changelog from the tag.
+> This action requires the `package.json` file to be present in the root of the repository.
+
+> This action also uses `pnpx` to run `changelogithub` action.
+
 
 ## Inputs
 ### `GITHUB_TOKEN`
