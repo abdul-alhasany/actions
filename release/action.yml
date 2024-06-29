@@ -1,0 +1,24 @@
+name: Tag and publish release
+description: Create a new Git tag and publish a release on GitHub whenever the npm package version has changed.
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Create tag on NPM package version change
+      uses: ./create-tag
+      id: tag
+
+    - name: Setup pnpm and install dependencies
+      if: steps.tag.outputs.tag-created == 'true'
+      uses: pnpm/action-setup@v4
+      with:
+        version: latest
+
+    - run: pnpx changelogithub
+      if: steps.tag.outputs.tag-created == 'true'
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
