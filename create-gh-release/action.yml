@@ -6,7 +6,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
@@ -20,7 +20,8 @@ runs:
       with:
         version: latest
 
-    - run: pnpx changelogithub
+    - name: Publish release on GitHub
+      run: pnpx changelogithub
       if: steps.tag.outputs.tag-created == 'true'
       shell: bash
       env:
