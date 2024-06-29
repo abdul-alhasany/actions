@@ -1,4 +1,4 @@
-# Create Release From Tag
+# Create Github Release From Tag Action
 
 This action checks out the repository, and creates a tag from the latest commit. If the tag is created, it creates a release from the tag. It also uses `changelogithub` action to generate changelog from the tag.
 
