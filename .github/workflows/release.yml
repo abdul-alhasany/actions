@@ -3,7 +3,7 @@ name: Tag and publish release
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - package.json
 
