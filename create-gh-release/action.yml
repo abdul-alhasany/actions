@@ -3,6 +3,8 @@ description: Create a new Git tag and publish a release on GitHub whenever the n
 inputs:
   GITHUB_TOKEN:
     description: GitHub token
+    default: ${{ github.token }}
+    required: false
 runs:
   using: composite
   steps:
