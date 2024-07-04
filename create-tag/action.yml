@@ -26,7 +26,6 @@ runs:
     - id: create-tag
       shell: bash
       run: |
-        echo "📝 Running > Create Tag"
         #!/bin/bash
         set -eux
 
