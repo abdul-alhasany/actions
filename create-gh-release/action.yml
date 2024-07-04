@@ -1,16 +1,25 @@
 name: Tag and publish release
 description: Create a new Git tag and publish a release on GitHub whenever the npm package version has changed.
 inputs:
-  GITHUB_TOKEN:
+  checkout_token:
     description: GitHub token
     default: ${{ github.token }}
+    required: false
+  checkout_repository:
+    description: The repository to checkout
+    default: ${{ github.repository }}
+    required: false
+  checkout_depth:
+    description: The depth of the git history to fetch
+    default: "1"
     required: false
 runs:
   using: composite
   steps:
     - uses: actions/checkout@v4
       with:
-        fetch-depth: 0
+        fetch-depth: ${{ inputs.checkout_depth }}
+        repository: ${{ inputs.checkout_repository }}
 
     - name: Create tag on NPM package version change
       uses: abdul-alhasany/actions/create-tag@main
@@ -27,7 +36,7 @@ runs:
       if: steps.tag.outputs.tag-created == 'true'
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.checkout_token }}
 
     - name: Show log message
       shell: bash
