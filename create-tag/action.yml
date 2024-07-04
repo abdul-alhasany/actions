@@ -1,6 +1,7 @@
 # Based on neverendingqs/gh-action-tag-on-npm-version@master
 name: Tag on NPM Package Version Change
 description: Creates a new Git tag whenever the npm package version has changed.
+
 inputs:
   git-user-email:
     description: Git user.email to use.
@@ -18,12 +19,14 @@ outputs:
   tag-created:
     description: "Whether the tag was created"
     value: ${{ steps.create-tag.outputs.tag-created }}
+
 runs:
   using: composite
   steps:
     - id: create-tag
       shell: bash
       run: |
+        echo "📝 Running > Create Tag"
         #!/bin/bash
         set -eux
 
