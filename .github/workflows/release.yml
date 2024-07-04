@@ -1,0 +1,17 @@
+name: Tag and publish release
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - package.json
+
+jobs:
+  tag-npm-release:
+    name: Tag and publish github release
+    runs-on: ubuntu-latest
+
+    steps:
+       - name: Create Release From Tag
+         uses: ./create-gh-release
